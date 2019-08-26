@@ -1,3 +1,5 @@
+const sleep = require('sleep');
+
 class Character {
     constructor(characterName = 'Unknown') {
         this.name = characterName;
@@ -16,7 +18,7 @@ class Character {
     }
 
     showCharacterStatus() {
-        console.log(`${this.name} have the following properies:`);
+        console.log(`\n${this.name} have the following properies:`);
         console.log(`Health: ${this.health}`);
         console.log(`Strength: ${this.strength}`);
         console.log(`Defence: ${this.defence}`);
@@ -27,11 +29,12 @@ class Character {
 
     criticalStrike() {
         let damage = this.strength;
+        sleep.sleep(1);
         if (this.getRandomInteger(0, 100) <= 10) {
-            console.log('A lucky hit. This shot will take some damage \u1F3AF !');
+            console.log('A lucky hit. This shot will take some damage!');
             damage += damage;
             if (this.getRandomInteger(0, 100) <= 1) {
-                console.log('Omg...anotther one! \u1F3AF ');
+                console.log('Omg...anotther one!');
                 damage += damage;
             }
         } else {
@@ -51,16 +54,22 @@ class Character {
     }
 
     attack(defender) {
+        console.log(`\n${this.name} will try to attack...let's see what happen`);
+        sleep.sleep(2);
         defender.getDamage(this.criticalStrike() - defender.defence);
     }
 
     getDamage(damage) {
         if (this.getRandomInteger(0, 100) <= this.luck) {
-            console.log(`Ha ha ! ${this.name} made a move in the right direction and will not take any damage`)
+            console.log(`\nHa ha ! ${this.name} made a move in the right direction and will not take any damage`);
+            sleep.sleep(3);
         } else {
             const takenDamage = this.resilience(damage);
+            sleep.sleep(3);
             console.log(`${this.name} will take some damage. Amoust ${takenDamage}`);
+            sleep.sleep(2);
             this.health -= takenDamage;
+            console.log(`${this.name} health: ${this.health > 0 ? this.health : 0}`);
         }
     }
 
