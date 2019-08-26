@@ -63,6 +63,8 @@ function searchForVillain() {
 
 function fight(villain) {
     let isHeroTurn = null;
+    let round = 1;
+    console.log(`First round\n`);
     if (unknownHero.speed > villain.speed) {
         unknownHero.attack(villain);
         isHeroTurn = false;
@@ -76,13 +78,17 @@ function fight(villain) {
         villain.attack(unknownHero);
         isHeroTurn = true;
     }
-
-    let round = 0;
     while (unknownHero.health > 0 && villain.health > 0) {
+        console.log(`\n\nRound: ${round}`);
         round++;
+
         if (round % 3 === 0) {
             console.log('\n ==> Fight goes on! They are both very strong! <==');
         }
+        if (round === 20) {
+            return unknownHero.health > villain.health; // end game if we have 20 turns
+        }
+
         if (isHeroTurn) {
             unknownHero.attack(villain);
         } else {
