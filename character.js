@@ -4,7 +4,6 @@ class Character {
     constructor(characterName = 'Unknown') {
         this.name = characterName;
         this.summon();
-        this.prepare();
     }
 
     prepare() {
@@ -24,7 +23,7 @@ class Character {
         console.log(`Defence: ${this.defence}`);
         console.log(`Speed: ${this.speed}`);
         console.log(`Luck: ${this.luck}`);
-        console.log('And is ready for a fight \u2694 !\n');
+        console.log('And is ready for a fight! \u2694\n');
     }
 
     criticalStrike() {
@@ -61,19 +60,21 @@ class Character {
 
     getDamage(damage) {
         if (this.getRandomInteger(0, 100) <= this.luck) {
-            console.log(`\nHa ha ! ${this.name} made a move in the right direction and will not take any damage`);
+            console.log(`Ha ha! ${this.name} made a move in the right direction and will not take any damage`);
             sleep.sleep(3);
         } else {
             const takenDamage = this.resilience(damage);
             sleep.sleep(3);
-            console.log(`${this.name} will take some damage. Amoust ${takenDamage}`);
+            console.log(`${this.name} will get some damage. Amoust ${takenDamage}`);
             sleep.sleep(2);
             this.health -= takenDamage;
             console.log(`${this.name} health: ${this.health > 0 ? this.health : 0}`);
         }
     }
 
-    summon() { }
+    summon() {
+        sleep.sleep(2);
+    }
 
     getRandomInteger(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;

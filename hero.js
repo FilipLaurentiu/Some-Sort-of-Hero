@@ -17,6 +17,7 @@ class Hero extends Character {
 
     summon() {
         console.log(`${this.name} the hero has been summon`);
+        super.summon();
     }
 }
 

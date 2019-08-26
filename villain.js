@@ -16,7 +16,8 @@ class Villain extends Character {
     }
 
     summon() {
-        console.log(`${this.name} is trying to take down the hero..let's see.`)
+        console.log(`${this.name} is trying to take down the hero..let's see.`);
+        super.summon();
     }
 }
 

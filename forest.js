@@ -5,51 +5,54 @@ const Villain = require('./villain');
 const Hero = require('./hero');
 
 
-console.log('You are right in front of the forest.');
-process.slee
-let answer = '';
-while (answer.toUpperCase() !== 'Y' && answer.toUpperCase() !== 'N') {
-    answer = readline.question("You are ready to enter in the forest ? y/n \n");
-}
-if (answer.toUpperCase() === 'N') {
-    console.log('Chicken...');
-    process.exit();
-}
+enterInTheForest();
 
 const heroName = getHeroName();
 const unknownHero = new Hero(heroName);
 const numberOfVillain = Math.floor((Math.random() * 5) + 1);
 sleep.sleep(2);
-console.log(`\n${heroName} you are in...\n`);
 
 for (let i = 0; i < numberOfVillain; i++) {
-    console.log('walking......');
+    unknownHero.prepare();
     sleep.sleep(3);
-    console.log('Oh no...Look ! A new villain \n');
-    sleep.sleep(1);
+
+    console.log('...walking in the forest...\n');
+    sleep.sleep(3);
+
+    if (i % 2 == 0) {
+        console.log('Just looking for another greate fight\n');
+        sleep.sleep(1);
+    }
+
+    console.log('Oh no...Look! A new villain \n');
+    sleep.sleep(3);
     if (isFakeVillain()) {
         i--;
         continue;
     } else {
         const newVillain = new Villain(getVillainName());
+        newVillain.prepare();
         const heroWin = fight(newVillain);
         if (!heroWin) {
             console.log('\nEnd of story... not the best hero');
             return;
-        } else if (i != numberOfVillain) { // out of the forest
+        } else { // not out of the forest
             console.log(`\n${unknownHero.name}, our brave hero win another fight. What a good hero we have`);
-            unknownHero.prepare();
+            console.log('Next -> \n');
         }
     }
     console.log('=======================================================================');
 }
 
-console.log(`Congratulation ${heroName}. You'r out of the forest`);
+if (unknownHero.health > 0) {
+    console.log(`Congratulation ${heroName}. You'r out of the forest`);
+}
 
 function isFakeVillain() {
     const randomNumber = Math.floor((Math.random() * 10) + 1);
-    if (randomNumber <= 3) {
+    if (randomNumber % 2 === 0) {
         console.log("Huh..it was just a leaf. \n");
+        sleep.sleep(2);
         return true;
     } else {
         return false;
@@ -76,7 +79,7 @@ function fight(villain) {
     while (unknownHero.health > 0 && villain.health > 0) {
         round++;
         if (round % 3 === 0) {
-            console.log('\nRound 4 ! They are both very strong !\n');
+            console.log('\n ==> Fight goes on! They are both very strong! <==');
         }
         if (isHeroTurn) {
             unknownHero.attack(villain);
@@ -104,4 +107,17 @@ function getHeroName() {
         heroName = readline.question("Give your hero a name: \n");
     }
     return heroName;
+}
+
+function enterInTheForest() {
+    console.log('You are right in front of the forest.');
+    sleep.sleep(2);
+    let answer = '';
+    while (answer.toUpperCase() !== 'Y' && answer.toUpperCase() !== 'N') {
+        answer = readline.question("You are ready to enter? y/n \n");
+    }
+    if (answer.toUpperCase() === 'N') {
+        console.log('Chicken...');
+        process.exit();
+    }
 }
