@@ -1,0 +1,24 @@
+{
+  "name": "some-sort-of-hero",
+  "version": "1.0.0",
+  "description": "",
+  "main": "forest.js",
+  "dependencies": {
+    "readline-sync": "^1.4.10",
+    "sleep": "^6.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node forest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FilipLaurentiu/Some-Sort-of-Hero.git"
+  },
+  "author": "Filip Laurentiu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FilipLaurentiu/Some-Sort-of-Hero/issues"
+  },
+  "homepage": "https://github.com/FilipLaurentiu/Some-Sort-of-Hero#readme"
+}
