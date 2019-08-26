@@ -24,23 +24,22 @@ for (let i = 0; i < numberOfVillain; i++) {
         sleep.sleep(1);
     }
 
-    console.log('Oh no...Look! A new villain \n');
-    sleep.sleep(3);
-    if (isFakeVillain()) {
-        i--;
-        continue;
-    } else {
-        const newVillain = new Villain(getVillainName());
-        newVillain.prepare();
-        const heroWin = fight(newVillain);
-        if (!heroWin) {
-            console.log('\nEnd of story... not the best hero');
-            return;
-        } else { // not out of the forest
-            console.log(`\n${unknownHero.name}, our brave hero win another fight. What a good hero we have`);
-            console.log('Next -> \n');
-        }
+    let isFakeVillain = searchForVillain();
+    while (isFakeVillain) {
+        isFakeVillain = searchForVillain();
     }
+
+    const newVillain = new Villain(getVillainName());
+    newVillain.prepare();
+    const heroWin = fight(newVillain);
+    if (!heroWin) {
+        console.log('\nEnd of story... not the best hero');
+        return;
+    } else { // not out of the forest
+        console.log(`\n${unknownHero.name}, our brave hero win another fight. What a good hero we have`);
+        console.log('Next -> \n');
+    }
+
     console.log('=======================================================================');
 }
 
@@ -48,9 +47,12 @@ if (unknownHero.health > 0) {
     console.log(`Congratulation ${heroName}. You'r out of the forest`);
 }
 
-function isFakeVillain() {
+function searchForVillain() {
+    console.log('Oh no...Look! A new villain');
+    sleep.sleep(3);
+
     const randomNumber = Math.floor((Math.random() * 10) + 1);
-    if (randomNumber % 2 === 0) {
+    if (randomNumber % 3 === 0) {
         console.log("Huh..it was just a leaf. \n");
         sleep.sleep(2);
         return true;
