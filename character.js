@@ -10,15 +10,19 @@ class Character {
         this.summon();
     }
 
-    criticalStrike(defender) {
-        this.attack(defender);
-        this.attack(defender);
+    criticalStrike() {
+        let demage = this.strength;
         if (this.getRandomInteger(0, 100) <= 10) {
-            this.attack(defender);
+            console.log('A lucky hit. This shot will take some demage !');
+            demage += demage;
             if (this.getRandomInteger(0, 100) <= 1) {
-                this.attack(defender);
+                console.log('Omg...anotther one! ');
+                demage += demage;
             }
+        } else {
+            console.log(`No critical strike today for ${this.name}`);
         }
+        return demage;
     }
 
     resilience(demage) {
@@ -32,11 +36,13 @@ class Character {
     }
 
     attack(defender) {
-        defender.getDemage(this.strength - defender.defence);
+        defender.getDemage(this.criticalStrike() - defender.defence);
     }
 
     getDemage(demage) {
-        this.health -= this.resilience(demage);
+        const takenDemage = this.resilience(demage);
+        console.log(`${this.name} will take some demage. Amoust ${takenDemage}`);
+        this.health -= takenDemage;
     }
 
     summon() { }
