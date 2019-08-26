@@ -26,38 +26,42 @@ class Character {
     }
 
     criticalStrike() {
-        let demage = this.strength;
+        let damage = this.strength;
         if (this.getRandomInteger(0, 100) <= 10) {
-            console.log('A lucky hit. This shot will take some demage \u1F3AF !');
-            demage += demage;
+            console.log('A lucky hit. This shot will take some damage \u1F3AF !');
+            damage += damage;
             if (this.getRandomInteger(0, 100) <= 1) {
                 console.log('Omg...anotther one! \u1F3AF ');
-                demage += demage;
+                damage += damage;
             }
         } else {
             console.log(`No critical strike today for ${this.name}`);
         }
-        return demage;
+        return damage;
     }
 
-    resilience(demage) {
+    resilience(damage) {
         if (this.lastResilienceUsed > 1 && this.getRandomInteger(0, 100) <= 20) {
             console.log(`${this.name} use resilience. Luky one!`);
             this.lastResilienceUsed = 0;
-            return demage / 2;
+            return damage / 2;
         }
         this.lastResilienceUsed++;
-        return demage;
+        return damage;
     }
 
     attack(defender) {
-        defender.getDemage(this.criticalStrike() - defender.defence);
+        defender.getDamage(this.criticalStrike() - defender.defence);
     }
 
-    getDemage(demage) {
-        const takenDemage = this.resilience(demage);
-        console.log(`${this.name} will take some demage. Amoust ${takenDemage}`);
-        this.health -= takenDemage;
+    getDamage(damage) {
+        if (this.getRandomInteger(0, 100) <= this.luck) {
+            console.log(`Ha ha ! ${this.name} made a move in the right direction and will not take any damage`)
+        } else {
+            const takenDamage = this.resilience(damage);
+            console.log(`${this.name} will take some damage. Amoust ${takenDamage}`);
+            this.health -= takenDamage;
+        }
     }
 
     summon() { }
