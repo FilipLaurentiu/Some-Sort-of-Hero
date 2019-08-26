@@ -1,8 +1,8 @@
 const Character = require('./character');
 
 class Villain extends Character {
-    constructor() {
-        super();
+    constructor(villainName = 'Unknown villain') {
+        super(villainName);
         this.health = this.getRandomInteger(60, 90);
         this.strength = this.getRandomInteger(60, 90);
         this.defence = this.getRandomInteger(40, 60);
@@ -11,7 +11,7 @@ class Villain extends Character {
     }
 
     summon() {
-        console.log("A new villain is trying to take down the hero..let's see.")
+        console.log(`${this.name} is trying to take down the hero..let's see.`)
     }
 }
 module.exports = Villain;
